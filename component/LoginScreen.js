@@ -1,8 +1,8 @@
-
 import React, { useState } from 'react';
 import { View, TextInput, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import auth from '@react-native-firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth'; // Import signInWithEmailAndPassword directly
+import { firebase } from '../firebase/firebase';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -11,7 +11,7 @@ const LoginScreen = () => {
 
   const handleLogin = async () => {
     try {
-      await auth().signInWithEmailAndPassword(email, password);
+      await signInWithEmailAndPassword(firebase.auth(), email, password); // Use firebase.auth() to access the auth instance
       // Navigate to home screen or another screen upon successful login
     } catch (error) {
       console.error('Login error:', error);
@@ -41,5 +41,3 @@ const LoginScreen = () => {
 };
 
 export default LoginScreen;
-
-
