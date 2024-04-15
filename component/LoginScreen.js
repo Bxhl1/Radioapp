@@ -12,7 +12,7 @@ const LoginScreen = () => {
 
   const handleLogin = async () => {
     try {
-      await signInWithEmailAndPassword(firebase.auth(), email, password);
+      await signInWithEmailAndPassword(firebase.auth, email, password);
       // Navigate to home screen or another screen upon successful login
     } catch (error) {
       console.error('Login error:', error);
