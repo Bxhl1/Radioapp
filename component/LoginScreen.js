@@ -13,13 +13,16 @@ const LoginScreen = () => {
   const handleLogin = async () => {
     try {
       await signInWithEmailAndPassword(firebase.auth, email, password);
-      // Navigate to home screen or another screen upon successful login
+      navigation.navigate('Home');
     } catch (error) {
       console.error('Login error:', error);
       // Update the error state with the error message
       setError('Invalid email or password. Please try again.'); // Set a generic error message
     }
   };
+
+ 
+
 
   // Conditional rendering of the error message
   const errorMessage = error && <Text style={{ color: 'red' }}>{error}</Text>;
