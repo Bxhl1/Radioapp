@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { View, TextInput, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createUserWithEmailAndPassword } from 'firebase/auth'; // Import createUserWithEmailAndPassword
-import { firebase } from '../firebase/firebase'; // Import your Firebase configuration
+import { firebase } from '../config/firebase'; // Import your Firebase configuration
 
 const RegisterScreen = () => {
   const [email, setEmail] = useState('');
@@ -13,10 +13,16 @@ const RegisterScreen = () => {
 
   const handleRegister = async () => {
     try {
-      await createUserWithEmailAndPassword(firebase.auth(), email, password); // Use createUserWithEmailAndPassword
-      // Navigate to home screen or another screen upon successful registration
+      await createUserWithEmailAndPassword(firebase.auth, email, password);
+      // Navigate to the home screen or another screen upon successful registration
     } catch (error) {
-      console.error('Registration error:', error);
+      if (error.code === 'auth/email-already-in-use') {
+        console.error('Email address is already in use');
+        // Display a message to the user indicating that the email address is already in use
+      } else {
+        console.error('Registration error:', error);
+        // Handle other registration errors
+      }
     }
   };
 
