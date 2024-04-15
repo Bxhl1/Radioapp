@@ -8,6 +8,7 @@ const LoginScreen = () => {
       <TextInput placeholder="Username" />
       <TextInput placeholder="Password" secureTextEntry={true} />
       <Button title="Login" onPress={() => {/* Handle login */}} />
+      
     </View>
   );
 };
