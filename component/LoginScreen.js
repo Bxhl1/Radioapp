@@ -41,7 +41,7 @@ const LoginScreen = () => {
         value={password}
         onChangeText={setPassword}
       />
-      <Button title="Login" onPress={handleLogin} />
+      <Button title="welcome to Dark fantasy" onPress={handleLogin} />
       <Button
         title="Register"
         onPress={() => navigation.navigate('Register')}

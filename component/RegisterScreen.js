@@ -14,7 +14,7 @@ const RegisterScreen = () => {
   const handleRegister = async () => {
     try {
       await createUserWithEmailAndPassword(firebase.auth, email, password);
-      // Navigate to the home screen or another screen upon successful registration
+        navigation.navigate('Registered');
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
         console.error('Email address is already in use');
@@ -29,7 +29,7 @@ const RegisterScreen = () => {
   return (
     <View>
       <TextInput
-        placeholder="Username"
+        placeholder="Email"
         value={email}
         onChangeText={setEmail}
       />
@@ -39,7 +39,7 @@ const RegisterScreen = () => {
         value={password}
         onChangeText={setPassword}
       />
-      <Button title="Register" onPress={handleRegister} />
+      <Button title="Register here" onPress={handleRegister} />
       <Button
         title="Login"
         onPress={() => navigation.navigate('Login')}
