@@ -5,7 +5,7 @@ import LoginScreen from './component/LoginScreen.js';
 import RegisterScreen from './component/RegisterScreen.js';
 import HomeScreen from './component/HomeScreen.js';
 import RegisteredScreen from './component/RegisteredScreen.js';
-
+import LogoutScreen from './component/LogoutScreen.js';
 
 
 // Initialize Firebase
