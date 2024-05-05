@@ -22,6 +22,7 @@ function App() {
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Registered" component = {RegisteredScreen}/>
+        <Stack.Screen name="Logout" component={LogoutScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
