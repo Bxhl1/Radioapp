@@ -53,6 +53,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
+    
+    
   },
   input: {
     height: 40,
@@ -62,6 +64,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 12,
     paddingHorizontal: 8,
+    
   },
   button: {
     backgroundColor: '#007BFF', // Button background color
