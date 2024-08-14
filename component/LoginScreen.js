@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { signInWithEmailAndPassword } from 'firebase/auth'; // Import signInWithEmailAndPassword directly
-import { firebase } from '../config/firebase'; // Import your Firebase configuration
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { firebase } from '../config/firebase';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(null); // State to store the error message
+  const [error, setError] = useState(null);
   const navigation = useNavigation();
 
   const handleLogin = async () => {
@@ -16,8 +16,12 @@ const LoginScreen = () => {
       navigation.navigate('Home');
     } catch (error) {
       console.error('Login error:', error);
-      // Update the error state with the error message
-      setError('Invalid email or password. Please try again.'); // Set a generic error message
+      setError('Invalid email or password. Please try again.');
+
+      // Clear the error message after 3 seconds
+      setTimeout(() => {
+        setError(null);
+      }, 3000); // 3000 milliseconds = 3 seconds
     }
   };
 
@@ -53,8 +57,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
-    
-    
   },
   input: {
     height: 40,
@@ -64,11 +66,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 12,
     paddingHorizontal: 8,
-    
   },
   button: {
-    backgroundColor: '#007BFF', // Button background color
-    borderRadius: 20, // Rounded corners
+    backgroundColor: '#007BFF',
+    borderRadius: 20,
     paddingVertical: 10,
     paddingHorizontal: 20,
     marginVertical: 8,
