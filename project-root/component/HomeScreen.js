@@ -3,11 +3,13 @@ import { View, Text, Button, StyleSheet, TouchableOpacity, Image } from 'react-n
 import { useNavigation } from '@react-navigation/native';
 import { Audio } from 'expo-av';
 
+
+
 const radioStations = {
-  Jazz: { uri: 'http://live.amperwave.net/direct/ppm-jazz24mp3-ibc1', image: require('./assets/jazz.png') },
-  Classical: { uri: 'http://someclassicalstation.com/stream', image: require('./assets/classical.png') },
-  Rock: { uri: 'http://somerockstation.com/stream', image: require('./assets/rock.png') },
-  Pop: { uri: 'http://somepopstation.com/stream', image: require('./assets/pop.png') },
+  Jazz: { uri: 'http://live.amperwave.net/direct/ppm-jazz24mp3-ibc1', image: require('../assets/jazz.png') },
+  Classical: { uri: 'http://someclassicalstation.com/stream', image: require('../assets/classical.png') },
+  Rock: { uri: 'http://somerockstation.com/stream', image: require('../assets/rock.png') },
+  Pop: { uri: 'http://somepopstation.com/stream', image: require('../assets/pop.png') },
 };
 
 const HomeScreen = () => {
