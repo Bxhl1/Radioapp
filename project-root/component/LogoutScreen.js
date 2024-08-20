@@ -1,7 +1,7 @@
 // In your LogoutScreen.js or wherever you're handling the logout
 import React from 'react';
 import { Button, View, Text } from 'react-native';
-import { firebase } from '../config/firebase';  // Adjust the path according to your structure
+import { firebase } from '../../config/firebase.js';  // Adjust the path according to your structure
 
 const LogoutScreen = ({ navigation }) => {
   const handleLogout = () => {

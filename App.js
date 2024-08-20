@@ -1,11 +1,11 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import LoginScreen from './component/LoginScreen.js';
-import RegisterScreen from './component/RegisterScreen.js';
-import HomeScreen from './component/HomeScreen.js';
-import RegisteredScreen from './component/RegisteredScreen.js';
-import LogoutScreen from './component/LogoutScreen.js';
+import LoginScreen from './project-root/component/LoginScreen.js';
+import RegisterScreen from './project-root/component/RegisterScreen.js';
+import HomeScreen from './project-root/component/HomeScreen.js';
+import RegisteredScreen from './project-root/component/RegisteredScreen.js';
+import LogoutScreen from './project-root/component/LogoutScreen.js';
 
 
 // Initialize Firebase
