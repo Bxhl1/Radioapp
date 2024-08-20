@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity, Image, ActivityIndicator, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -16,71 +17,51 @@ const HomeScreen = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isBuffering, setIsBuffering] = useState(false);
   const playbackInstances = useRef({});
-  const [bufferRetryCount, setBufferRetryCount] = useState(0);
-
+  
   useEffect(() => {
-    const setAudioMode = async () => {
-      try {
-        await Audio.setAudioModeAsync({
-          allowsRecordingIOS: false,
-          playsInSilentModeIOS: true,
-          shouldDuckAndroid: true,
-          playThroughEarpieceAndroid: false,
-          staysActiveInBackground: true,
-        });
-      } catch (error) {
-        console.error('Error setting audio mode:', error);
-      }
-    };
-
-    setAudioMode();
+    Audio.setAudioModeAsync({
+      allowsRecordingIOS: false,
+      playsInSilentModeIOS: true,
+      shouldDuckAndroid: true,
+      playThroughEarpieceAndroid: false,
+      staysActiveInBackground: true,
+    });
 
     return () => {
       Object.values(playbackInstances.current).forEach(async (playbackInstance) => {
-        if (playbackInstance) {
-          await playbackInstance.stopAsync().catch((error) => console.error('Error stopping sound:', error));
-          await playbackInstance.unloadAsync().catch((error) => console.error('Error unloading sound:', error));
-        }
+        await playbackInstance?.stopAsync();
+        await playbackInstance?.unloadAsync();
       });
-      playbackInstances.current = {};
     };
   }, []);
 
   const preloadStream = async (station) => {
     try {
-      setIsBuffering(true);
-      setCurrentStation(station);
-
-      // Stop and unload the current playing sound, if any
-      if (playbackInstances.current[currentStation]) {
-        const currentInstance = playbackInstances.current[currentStation];
-        const status = await currentInstance.getStatusAsync();
-        if (status.isLoaded) {
-          await currentInstance.stopAsync();
-          await currentInstance.unloadAsync();
-        }
+      console.log(Preloading stream for station: ${station});
+      
+      // Unload previous station's sound if switching stations
+      if (currentStation && currentStation !== station && playbackInstances.current[currentStation]) {
+        console.log(Unloading previous station: ${currentStation});
+        await playbackInstances.current[currentStation].stopAsync();
+        await playbackInstances.current[currentStation].unloadAsync();
+        delete playbackInstances.current[currentStation];
       }
 
-      // If the station is already preloaded, return early
       if (playbackInstances.current[station]) {
+        console.log(Station ${station} already preloaded.);
+      } else {
+        setIsBuffering(true);
+        const { sound } = await Audio.Sound.createAsync(
+          { uri: radioStations[station].uri },
+          { shouldPlay: false },
+          (status) => onPlaybackStatusUpdate(status, station)
+        );
+        playbackInstances.current[station] = sound;
+        console.log(Sound object created for station: ${station});
         setIsBuffering(false);
-        return;
       }
 
-      // Create a new sound object
-      const { sound, status } = await Audio.Sound.createAsync(
-        { uri: radioStations[station].uri },
-        { shouldPlay: false } // Set to false to preload without playing immediately
-      );
-
-      if (!sound || !status.isLoaded) {
-        throw new Error("Sound object creation failed or sound is not loaded.");
-      }
-
-      playbackInstances.current[station] = sound;
-      sound.setOnPlaybackStatusUpdate(onPlaybackStatusUpdate);
-
-      setIsBuffering(false);
+      setCurrentStation(station);
     } catch (error) {
       console.error('Error during stream preload:', error);
       setIsBuffering(false);
@@ -92,53 +73,31 @@ const HomeScreen = () => {
     const playbackInstance = playbackInstances.current[currentStation];
 
     if (!playbackInstance) {
-      console.warn('No sound instance available for the current station.');
+      Alert.alert('Playback Error', 'No audio loaded for current station.');
       return;
     }
 
-    try {
-      const status = await playbackInstance.getStatusAsync();
+    const status = await playbackInstance.getStatusAsync();
+    if (!status.isLoaded) {
+      Alert.alert('Playback Error', 'Audio not loaded yet, please wait.');
+      return;
+    }
 
-      if (!status.isLoaded) {
-        console.warn('Sound is not yet loaded. Please wait.');
-        return;
-      }
-
-      if (isPlaying) {
-        await playbackInstance.pauseAsync();
-        setIsPlaying(false);
-      } else {
-        setIsBuffering(true);
-        await playbackInstance.playAsync();
-        setIsPlaying(true);
-        setIsBuffering(false);
-      }
-    } catch (error) {
-      console.error('Error during play/pause:', error);
-      setIsBuffering(false);
+    if (status.isPlaying) {
+      await playbackInstance.pauseAsync();
+    } else {
+      await playbackInstance.playAsync();
     }
   };
 
-  const onPlaybackStatusUpdate = (status) => {
-    console.log("Playback Status:", status);
-    if (status.isLoaded) {
+  const onPlaybackStatusUpdate = (status, station) => {
+    if (station === currentStation) {
       setIsPlaying(status.isPlaying);
       setIsBuffering(status.isBuffering);
-
-      if (status.isBuffering && bufferRetryCount < 3) {
-        setBufferRetryCount(bufferRetryCount + 1);
-        playbackInstances.current[currentStation].playAsync().catch((error) => {
-          console.error('Error retrying play during buffering:', error);
-          setIsBuffering(false);
-        });
-      } else if (status.isBuffering && bufferRetryCount >= 3) {
-        setIsBuffering(false);
-        Alert.alert('Buffering Issue', 'The stream is experiencing buffering issues. Please try again later or check your connection.');
-      }
-    } else if (status.error) {
-      console.error('Playback Error:', status.error);
-      setIsPlaying(false);
-      setIsBuffering(false);
+    }
+    if (status.didJustFinish && !status.isLooping) {
+      playbackInstances.current[station]?.unloadAsync();
+      delete playbackInstances.current[station];
     }
   };
 
@@ -226,6 +185,3 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-
-export default HomeScreen;
-
