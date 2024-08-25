@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { firebase } from '../../config/firebase.js';
 import LinearGradient from 'react-native-linear-gradient'; // Assuming you're using this library
-import styles, { Gradients } from '../styles/styles.js'; 
+import styles, { Gradients } from '../styles/backgroundstyles.js'; 
 
 
 const LoginScreen = () => {
