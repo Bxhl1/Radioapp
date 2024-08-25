@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity, Image, ActivityIndicator, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -37,18 +36,18 @@ const HomeScreen = () => {
 
   const preloadStream = async (station) => {
     try {
-      console.log(Preloading stream for station: ${station});
+      console.log(`Preloading stream for station: ${station}`);
       
       // Unload previous station's sound if switching stations
       if (currentStation && currentStation !== station && playbackInstances.current[currentStation]) {
-        console.log(Unloading previous station: ${currentStation});
+        console.log(`Unloading previous station: ${currentStation}`);
         await playbackInstances.current[currentStation].stopAsync();
         await playbackInstances.current[currentStation].unloadAsync();
         delete playbackInstances.current[currentStation];
       }
 
       if (playbackInstances.current[station]) {
-        console.log(Station ${station} already preloaded.);
+        console.log(`Station ${station} already preloaded.`);
       } else {
         setIsBuffering(true);
         const { sound } = await Audio.Sound.createAsync(
@@ -57,7 +56,7 @@ const HomeScreen = () => {
           (status) => onPlaybackStatusUpdate(status, station)
         );
         playbackInstances.current[station] = sound;
-        console.log(Sound object created for station: ${station});
+        console.log(`Sound object created for station: ${station}`);
         setIsBuffering(false);
       }
 
@@ -85,8 +84,10 @@ const HomeScreen = () => {
 
     if (status.isPlaying) {
       await playbackInstance.pauseAsync();
+      setIsPlaying(false);
     } else {
       await playbackInstance.playAsync();
+      setIsPlaying(true);
     }
   };
 
@@ -185,3 +186,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+export default HomeScreen;

@@ -3,6 +3,8 @@ import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity } from 'rea
 import { useNavigation } from '@react-navigation/native';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { firebase } from '../../config/firebase.js';
+import LinearGradient from 'react-native-linear-gradient'; // Assuming you're using this library
+import styles, { Gradients } from '../styles/styles.js'; 
 
 
 const LoginScreen = () => {
