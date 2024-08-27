@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, TextInput, Button, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { firebase } from '../../config/firebase.js';
-import LinearGradient from 'react-native-linear-gradient'; // Assuming you're using this library
-import styles, { Gradients } from '../styles/backgroundstyles.js'; 
-
+import LinearGradient from 'react-native-linear-gradient';
+import styles from '../styles/styles.js';
+ // Import the styles
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -21,10 +21,9 @@ const LoginScreen = () => {
       console.error('Login error:', error);
       setError('Invalid email or password. Please try again.');
 
-      // Clear the error message after 3 seconds
       setTimeout(() => {
         setError(null);
-      }, 3000); // 3000 milliseconds = 3 seconds
+      }, 3000);
     }
   };
 
@@ -53,42 +52,5 @@ const LoginScreen = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
-  },
-  input: {
-    height: 40,
-    width: '100%',
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 5,
-    marginBottom: 12,
-    paddingHorizontal: 8,
-  },
-  button: {
-    backgroundColor: '#007BFF',
-    borderRadius: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    marginVertical: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '80%',
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  errorText: {
-    color: 'red',
-    marginBottom: 12,
-  },
-});
 
 export default LoginScreen;
