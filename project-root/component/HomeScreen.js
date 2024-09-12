@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity, Image, ActivityIndicator, Alert } from 'react-native';
+import { View, Text, Button, TouchableOpacity, Image, ActivityIndicator, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Audio } from 'expo-av';
+import styles from '../Styles/styles.js';
 
 const radioStations = {
   Jazz: { uri: 'http://stream.radioparadise.com/aac-128', image: require('../assets/jazz.png') },
@@ -102,8 +103,20 @@ const HomeScreen = () => {
     }
   };
 
+
+
+
+
+
+
+
+
+
+
+
   return (
-    <View style={styles.container}>
+    <View style={styles.homescreenContainer}>
+    
       <Text style={styles.title}>Choose Your Station</Text>
       <View style={styles.buttonsContainer}>
         {Object.keys(radioStations).map((station) => (
@@ -135,56 +148,4 @@ const HomeScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
-  },
-  buttonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 20,
-    width: '100%',
-  },
-  stationButton: {
-    padding: 10,
-    backgroundColor: '#007bff',
-    borderRadius: 5,
-  },
-  stationButtonText: {
-    color: '#fff',
-    fontSize: 16,
-  },
-  radioContainer: {
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  radioImage: {
-    width: 150,
-    height: 150,
-    marginBottom: 20,
-  },
-  playPauseButton: {
-    padding: 10,
-    backgroundColor: '#007bff',
-    borderRadius: 5,
-  },
-  playPauseButtonText: {
-    color: '#fff',
-    fontSize: 18,
-  },
-  bottomContainer: {
-    position: 'absolute',
-    bottom: 20,
-    width: '100%',
-    alignItems: 'center',
-  },
-});
-
-export default HomeScreen;
+  export default HomeScreen;

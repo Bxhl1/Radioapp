@@ -1,33 +1,28 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import styles from '../Styles/styles.js'; // Import the styles
 
 const RegisteredScreen = () => {
   const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>You have successfully registered!</Text>
-      <Button
-        title="Go to Login"
-        onPress={() => navigation.navigate('Login')} // Navigate to the Login screen
-      />
+      <View style={styles.topSection}>
+        {/* You can add any design elements here */}
+      </View>
+      
+      <View style={styles.bottomSection}>
+        <Text style={styles.outsideText}>You have successfully registered!</Text>
+        <TouchableOpacity 
+          style={styles.button} 
+          onPress={() => navigation.navigate('Login')}
+        >
+          <Text style={styles.buttonText}>Go to Login</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 20,
-  },
-});
 
 export default RegisteredScreen;

@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Text, TouchableOpacity } from 'react-native';
+import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { firebase } from '../../config/firebase.js';
-import LinearGradient from 'react-native-linear-gradient';
-import styles from '../styles/styles.js';
+
+import styles from '../Styles/styles.js'; // Correct import
  // Import the styles
+
+
+
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -29,9 +32,14 @@ const LoginScreen = () => {
 
   return (
     <View style={styles.container}>
+    <View style={styles.topSection}>
+    <Image source={require('../../assets/radioicon-1.png')} style={styles.icon} />
+    </View>
+    
+    <View style={styles.bottomSection}>
       {error && <Text style={styles.errorText}>{error}</Text>}
       <TextInput
-        placeholder="Username"
+        placeholder="Email"
         value={email}
         onChangeText={setEmail}
         style={styles.input}
@@ -44,13 +52,19 @@ const LoginScreen = () => {
         style={styles.input}
       />
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Login</Text>
+        <Text style={styles.buttonText}>Log in</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Register')}>
+      <TouchableOpacity
+        style={[styles.button, styles.registerButton]}
+        onPress={() => navigation.navigate('Register')}
+      >
         <Text style={styles.buttonText}>Register</Text>
       </TouchableOpacity>
     </View>
+  </View>
+    
   );
 };
+
 
 export default LoginScreen;
