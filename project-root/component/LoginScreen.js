@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text, TouchableOpacity } from 'react-native';
+import { View, TextInput, Text, TouchableOpacity, Image, KeyboardAvoidingView, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { firebase } from '../../config/firebase.js';
@@ -31,9 +31,17 @@ const LoginScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+    style={styles.container}
+    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0} // Adjust the offset for iOS
+  >
     <View style={styles.topSection}>
-    <Image source={require('../../assets/radioicon-1.png')} style={styles.icon} />
+   
+    
+         
+          <Image source={require('../assets/radioicon-1.png')} style={styles.icon} />
+        
     </View>
     
     <View style={styles.bottomSection}>
@@ -61,7 +69,7 @@ const LoginScreen = () => {
         <Text style={styles.buttonText}>Register</Text>
       </TouchableOpacity>
     </View>
-  </View>
+    </KeyboardAvoidingView>
     
   );
 };

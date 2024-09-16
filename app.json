@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "radioApp",
-    "slug": "radioApp",
+    "name": "WesleyRadio",
+    "slug": "WesleyRadio",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./project-root/assets/icon.png",

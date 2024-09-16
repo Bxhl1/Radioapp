@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, Button, TouchableOpacity, Image, ActivityIndicator, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ActivityIndicator, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Audio } from 'expo-av';
 import styles from '../Styles/styles.js';
@@ -115,9 +115,9 @@ const HomeScreen = () => {
 
 
   return (
-    <View style={styles.homescreenContainer}>
-    
-      <Text style={styles.title}>Choose Your Station</Text>
+   <View style={styles.homescreenContainer}>
+<Image source={require('../assets/radioicon-3.png')} style={styles.homeicon} />
+ <Text style={styles.title}>Choose Your Station</Text>
       <View style={styles.buttonsContainer}>
         {Object.keys(radioStations).map((station) => (
           <TouchableOpacity
@@ -141,10 +141,15 @@ const HomeScreen = () => {
           )}
         </View>
       )}
-      <View style={styles.bottomContainer}>
-        <Button title="Logout" onPress={() => navigation.navigate('Logout')} />
+       <View style={styles.bottomContainer}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Logout')}
+        >
+          <Text style={styles.logout}>Logout</Text>
+        </TouchableOpacity>
       </View>
     </View>
+  
   );
 };
 

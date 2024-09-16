@@ -1,6 +1,6 @@
 // RegisterScreen.js
 import React, { useState } from 'react';
-import { View, TextInput, Text, TouchableOpacity } from 'react-native';
+import { View, TextInput, Text, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { firebase } from '../../config/firebase.js';
@@ -31,7 +31,11 @@ const RegisterScreen = () => {
    
     <View style={styles.container}>
     <View style={styles.topSection}>
-      {/* Add any top section content or leave it empty for design purposes */}
+
+    
+         
+         <Image source={require('../assets/radioicon-2.png')} style={styles.icon} />
+      
     </View>
     
     <View style={styles.bottomSection}>

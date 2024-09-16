@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary, // Bottom section color
   },
   topSection: {
+    flex: 1,
     height: '30%', // Adjust the height as needed for your design
     backgroundColor: Colors.secondary, // Top section color
     borderBottomLeftRadius: 50, // Adjust for curve effect
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
     paddingBottom: 40, // Adds spacing from bottom of top section
   },
   bottomSection: {
-    flex: 1,  // Takes up the remaining space
+    flex: 2,  // Takes up the remaining space
     paddingHorizontal: 20,
     justifyContent: 'center',
     alignItems: 'center',
@@ -72,26 +73,34 @@ const styles = StyleSheet.create({
     fontSize: 50,
   },
   icon: {
-    width: 100,  // Adjust the width as needed
-    height: 100, // Adjust the height as needed
+
+    
+    width: 200,  // Adjust the width as needed
+    height: 200, // Adjust the height as needed
     resizeMode: 'contain', // Ensures the image scales correctly
-    marginBottom: 20, // Space between the icon and the form elements
+    borderRadius: 50,// Space between the icon and the form elements
+    marginTop: 100,
   },
+
+  
 
 
   //Homescreen styes are below here 
   
+ 
+
   homescreenContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+   
     backgroundColor: Colors.homecolor,
   },
   title: {
     fontSize: 30,
     marginBottom: 20,
-    color: Colors.text
+    color: Colors.text,
+    marginTop: 50,
 
   },
   buttonsContainer: {
@@ -117,22 +126,50 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
     marginBottom: 20,
+    
   },
   playPauseButton: {
+  
     padding: 10,
-    backgroundColor: '#007bff',
-    borderRadius: 5,
+    backgroundColor: '#df2457',
+    borderRadius:50,
   },
   playPauseButtonText: {
     color: '#fff',
     fontSize: 18,
+    
+    
   },
   bottomContainer: {
     position: 'absolute',
-    bottom: 20,
+    bottom: 30,
     width: '100%',
     alignItems: 'center',
+    
   },
+
+
+  homeicon: {
+    width: 200,  // Adjust the width as needed
+    height: 200, // Adjust the height as needed
+    resizeMode: 'contain', // Ensures the image scales correctly
+    borderRadius: 50,// Space between the icon and the form elements
+    marginBottom: 50,
+   
+
+
+  },
+  logout:{
+     backgroundColor: '#c3c720',
+     color: Colors.text,
+     padding: 10,
+     borderRadius: 10,
+     fontSize: 20,
+     
+
+
+  }
+    
 });
 
 
